@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<form action="/" method="POST" class="task-form">
+  <input type="text" name="title" placeholder="Add a new task..." required>
+  <select name="priority">
+    <option value="low">Low Priority</option>
+    <option value="high">High Priority</option>
+    <option value="urgent">Urgent</option>
+  </select>
+  <button type="submit">Add Task</button>
+</form>
+
+<ul class="task-list">
+  <% tasks.forEach(task => { %>
+    <li class="task-item priority-<%= task.priority %> <%= task.completed ? 'completed' : '' %>">
+      <span><%= task.title %></span>
+      <div class="task-actions">
+        <a href="/edit/<%= task._id %>" class="edit-btn"><i class="fas fa-pencil-alt"></i></a>
+        <form action="/delete/<%= task._id %>" method="POST" class="delete-form">
+          <button type="submit" class="delete-btn"><i class="fas fa-trash"></i></button>
+        </form>
+      </div>
+    </li>
+  <% }); %>
+</ul>
+
+<%- include('partials/footer') %>
